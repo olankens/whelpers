@@ -23,7 +23,7 @@ Windows related helper PowerShell module.
 
 # <samp>GUIDANCE</samp>
 
-### Import the Module
+### Import the module
 
 ```powershell
 $Address = "https://raw.githubusercontent.com/olankens/whelpers/HEAD/src/Whelpers.psm1"
