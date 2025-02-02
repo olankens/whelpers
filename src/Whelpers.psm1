@@ -43,27 +43,36 @@ Function Get-FileVersion {
 
 }
 
-Function Get-FromDropbox {
-
-    Return $False # TODO
-
-}
-
 Function Get-FromGithub {
 
-    Return $False # TODO
+    Param (
+        [Parameter(Mandatory = $True)] [String] $Payload,
+        [Parameter(Mandatory = $True)] [String] $Pattern
+    )
+
+    $Results = (Invoke-WebRequest "$Payload" | ConvertFrom-Json).assets
+    $Address = $Results | Where-Object { $_.browser_download_url -Like "$Pattern" } | Select-Object -ExpandProperty browser_download_url
+    $Fetched = Join-Path "$([IO.Path]::GetTempPath())" "$(Split-Path "$Address" -Leaf)"
+    (New-Object Net.WebClient).DownloadFile("$Address", "$Fetched")
+    Return "$Fetched"
 
 }
 
-Function Get-FromMega {
+Function Get-FromMicrosoftStore {
 
-    Return $False # TODO
+    Param (
+        [Parameter(Mandatory = $True)] [String] $Payload
+    )
 
-}
-
-Function Get-FromUrl {
-
-    Return $False # TODO
+    $Results = (Invoke-WebRequest "https://api.github.com/repos/mjishnu/alt-app-installer-cli/releases/latest" | ConvertFrom-Json).assets
+    $Address = $Results | Where-Object { $_.browser_download_url -Like "*.exe" } | Select-Object -ExpandProperty browser_download_url
+    $Fetched = Join-Path "$([IO.Path]::GetTempPath())" "$(Split-Path "$Address" -Leaf)"
+    (New-Object Net.WebClient).DownloadFile("$Address", "$Fetched")
+    $Deposit = Join-Path "$([IO.Path]::GetTempPath())" "downloads"
+    Remove-Item -Path "$Deposit" -Recurse -Force -EA SI
+    Start-Process "$Fetched" "`"$Payload`" -d" -WindowStyle Minimized -Wait -WorkingDirectory "$([IO.Path]::GetTempPath())"
+    $Element = (Get-ChildItem -Path "$Deposit" -File | Select-Object -First 1).FullName
+    Return "$Element"
 
 }
 
@@ -107,6 +116,36 @@ Function Set-DesktopBackground {
     $Content += '}'
     Add-Type -TypeDefinition "$($Content | Out-String)"
     [BackgroundChanger]::SetBackground($Picture)
+
+}
+
+Function Set-DeveloperMode {
+
+    Param (
+        [Parameter(Mandatory = $True)] [Bool] $Enabled
+    )
+
+    Invoke-Gsudo {
+        New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name AllowDevelopmentWithoutDevLicense -Value $(If ($Using:Enabled) { 1 } Else { 0 }) -Force -EA SI | Out-Null
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -Name AllowDevelopmentWithoutDevLicense -Value $(If ($Using:Enabled) { 1 } Else { 0 }) -EA SI | Out-Null
+    }
+    
+}
+
+Function Set-DisplayScaling {
+
+    # $Scaling = 0 : 100%
+    # $Scaling = 1 : 125%
+    # $Scaling = 2 : 150%
+    # $Scaling = 3 : 175%
+    Param (
+        [Parameter(Mandatory = $True)] [ValidateNotNullOrEmpty()] [Int] $Scaling
+    )
+
+    $Content += '[DllImport("user32.dll", EntryPoint = "SystemParametersInfo")]'
+    $Content += 'public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, uint pvParam, uint fWinIni);'
+    $ApiCall = Add-Type -MemberDefinition "$($Content | Out-String)" -Name WinAPICall -Namespace SystemParamInfo -PassThru
+    $ApiCall::SystemParametersInfo(0x009F, $Scaling, $Null, 1) | Out-Null
 
 }
 
