@@ -415,7 +415,7 @@ Function Use-UpdateWrapper {
     $Current = (Get-PSCallStack | Where-Object { $_.ScriptName -Like "*.ps1" } | Select-Object -Last 1).ScriptName
     If ($Null -Ne $Current) { $Host.UI.RawUI.WindowTitle = (Get-Item "$Current").BaseName.ToUpper() }
 
-    Clear-Host ; $ProgressPreference = "SilentlyContinue"
+    Clear-Host ; $ProgressPreference = "SilentlyContinue" ; $WarningPreference = "SilentlyContinue"
     $Heading = (($Heading -Split "`n" | ForEach-Object { $_.Trim() }) -Join "`n").TrimStart()
     Write-Host "$Heading" -ForegroundColor Green -NoNewLine
 
