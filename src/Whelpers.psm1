@@ -416,7 +416,7 @@ Function Use-UpdateWrapper {
     If ($Null -Ne $Current) { $Host.UI.RawUI.WindowTitle = (Get-Item "$Current").BaseName.ToUpper() }
 
     Clear-Host ; $ProgressPreference = "SilentlyContinue"
-    $Heading = ($Heading -Split "`n" | ForEach-Object { $_.Trim() }) -Join "`n"
+    $Heading = (($Heading -Split "`n" | ForEach-Object { $_.Trim() }) -Join "`n").TrimStart() # TODO: TEST
     Write-Host "$Heading" -ForegroundColor Green -NoNewLine
 
     $Loading = "`nTHE UPDATING PROCESS HAS LAUNCHED"
