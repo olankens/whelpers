@@ -122,10 +122,6 @@ Function Set-DeveloperMode {
 
 Function Set-DisplayScaling {
 
-    # $Scaling = 0 : 100%
-    # $Scaling = 1 : 125%
-    # $Scaling = 2 : 150%
-    # $Scaling = 3 : 175%
     Param (
         [Parameter(Mandatory = $True)] [ValidateNotNullOrEmpty()] [Int] $Scaling
     )
