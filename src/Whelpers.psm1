@@ -283,9 +283,11 @@ Function Use-RebootReload {
 
     $Current = (Get-PSCallStack | Where-Object { $_.ScriptName -Like "*.ps1" } | Select-Object -Last 1).ScriptName
     If ($Null -Ne $Current) {
-        $Program = "$Env:LocalAppData\Microsoft\WindowsApps\wt.exe"
+        # $Program = "$Env:LocalAppData\Microsoft\WindowsApps\wt.exe"
+        $Program = (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName
         $Heading = (Get-Item "$Current").BaseName.ToUpper()
-        $Command = "$Program --title $Heading pwsh -ep bypass -noexit -nologo -file $Current"
+        # $Command = "$Program --title $Heading pwsh -ep bypass -noexit -nologo -file $Current"
+        $Command = "$Program -ep bypass -noexit -nologo -file $Current"
         $RegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
         If (-Not (Test-Path (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName)) { Use-UpdatePowershell }
         New-ItemProperty "$RegPath" "$Heading" -Value "$Command" | Out-Null
@@ -382,7 +384,7 @@ Function Use-UpdatePowershell {
         }
     }
 
-    If ([Version] $PSVersionTable.PSVersion.ToString() -Lt [Version] "7.0.0.0") { Use-RebootReload }
+    If ($PSVersionTable.PSVersion -Lt [Version] "7.0") { Use-RebootReload }
 
 }
 
