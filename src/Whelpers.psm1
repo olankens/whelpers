@@ -23,6 +23,7 @@ Function Add-ToPath {
 Function Get-FileVersion {
 
     Param (
+        # Has to accept an empty string, so mandatory has to be false
         [Parameter(Mandatory = $False)] [String] $Payload
     )
 
@@ -279,13 +280,14 @@ Function Use-RebootReload {
 
     $Current = (Get-PSCallStack | Where-Object { $_.ScriptName -Like "*.ps1" } | Select-Object -Last 1).ScriptName
     If ($Null -Ne $Current) {
-        # $Program = "$Env:LocalAppData\Microsoft\WindowsApps\wt.exe"
-        $Program = (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName
         $Heading = (Get-Item "$Current").BaseName.ToUpper()
+        If (-Not (Test-Path (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName)) { Use-UpdatePowershell }
+        # Windows Terminal is not installed on Windows LTSC IoT Enterprise
+        # $Program = "$Env:LocalAppData\Microsoft\WindowsApps\wt.exe"
         # $Command = "$Program --title $Heading pwsh -ep bypass -noexit -nologo -file $Current"
+        $Program = (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName
         $Command = "$Program -ep bypass -noexit -nologo -file $Current"
         $RegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
-        If (-Not (Test-Path (Get-Item "$Env:ProgramFiles\PowerShell\*\pwsh.exe" -EA SI).FullName)) { Use-UpdatePowershell }
         New-ItemProperty "$RegPath" "$Heading" -Value "$Command" | Out-Null
         Invoke-Gsudo { Get-LocalUser -Name "$Env:Username" | Set-LocalUser -Password ([SecureString]::New()) }
         Set-Uac -Enabled $False
