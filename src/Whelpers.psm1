@@ -23,7 +23,7 @@ Function Add-ToPath {
 Function Get-FileVersion {
 
     Param (
-        [Parameter(Mandatory = $True)] [String] $Payload
+        [Parameter(Mandatory = $False)] [String] $Payload
     )
 
     If ([String]::IsNullOrWhiteSpace($Payload)) { Return "0.0" }
