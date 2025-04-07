@@ -59,10 +59,6 @@ Function Get-FromMicrosoftStore {
         [Parameter(Mandatory = $True)] [ValidateNotNullOrEmpty()] [String] $Payload
     )
 
-    Invoke-Gsudo {
-        $ProgressPreference = "SilentlyContinue"
-        Get-AppxPackage -Name "Microsoft.WindowsStore"
-    }
     $Results = (Invoke-WebRequest "https://api.github.com/repos/mjishnu/alt-app-installer-cli/releases/latest" | ConvertFrom-Json).assets
     $Address = $Results | Where-Object { $_.browser_download_url -Like "*.exe" } | Select-Object -ExpandProperty browser_download_url
     $Fetched = Join-Path "$([IO.Path]::GetTempPath())" "$(Split-Path "$Address" -Leaf)"
