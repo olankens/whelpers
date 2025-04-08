@@ -104,7 +104,7 @@ Function Set-DesktopBackground {
     $Content += '       SystemParametersInfo(SetDesktopWallpaper, 0, path, UpdateIniFile | SendWinIniChange);'
     $Content += '   }'
     $Content += '}'
-    Add-Type -TypeDefinition "$($Content | Out-String)"
+    Try { Add-Type -TypeDefinition $Content -EA SI } Catch {}
     [BackgroundChanger]::SetBackground($Picture)
 
 }
