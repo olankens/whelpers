@@ -391,6 +391,8 @@ Function Use-UpdateWrapper {
 
     Param (
         [Parameter(Mandatory = $True)] [String] $Heading,
+        [Parameter(Mandatory = $True)] [String] $Country,
+        [Parameter(Mandatory = $True)] [String] $Machine,
         [Parameter(Mandatory = $True)] [ScriptBlock[]] $Members,
         [String] $Outputs = "$Env:Temp\$((Get-Date).ToString("yyyy-MM-dd")).LOG"
     )
@@ -409,6 +411,9 @@ Function Use-UpdateWrapper {
     $Correct = (Use-UpdateGsudo) -And ! (gsudo cache on -d -1 2>&1).ToString().Contains("Error")
     If (-Not $Correct) { Write-Host "$Failure`n" -FO Red ; Exit }
     Use-UpdatePowershell ; Set-Uac -Enabled $True
+
+    Set-TimeZone -Name "$Country" ; Use-ReloadClock
+    Set-Hostname -Payload "$Machine"
 
     $Bigness = ($Heading -Split "`n" | ForEach-Object { $_.Length }) | Measure-Object -Maximum | ForEach-Object Maximum
     $Bigness = ($Bigness - 19) * -1
