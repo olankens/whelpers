@@ -9,7 +9,7 @@
 
 ---
 
-<h3 align="center">Import Module</h3>
+### Import Module
 
 ```powershell
 $Address = "https://raw.githubusercontent.com/olankens/whelpers/HEAD/src/Whelpers.psm1"
