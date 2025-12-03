@@ -6,7 +6,7 @@ Windows related helper PowerShell module.
 
 <hr>
 
-### Features
+### Key Features
 
 - Add to PATH
 - Get file version
