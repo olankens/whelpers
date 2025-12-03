@@ -2,7 +2,7 @@
 
 # <samp>OVERVIEW</samp>
 
-Windows related helper PowerShell module.
+Windows related helper PowerShell module for automation purposes.
 
 <hr>
 
@@ -33,6 +33,8 @@ Windows related helper PowerShell module.
 - …
 
 <hr>
+
+# <samp>GUIDANCE</samp>
 
 ### Import Module
 
