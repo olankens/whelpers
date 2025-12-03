@@ -11,7 +11,7 @@ Windows related helper PowerShell module for automation purposes.
 - Add to PATH
 - Get file version
 - Get asset from GitHub
-- Get asset from Microsoft Store
+- Get application from Microsoft Store
 - Set audio volume
 - Set desktop background
 - Set developer mode
