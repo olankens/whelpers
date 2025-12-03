@@ -8,10 +8,10 @@ Windows related helper PowerShell module.
 
 ### Features
 
-- Add to path
+- Add to PATH
 - Get file version
-- Get asset from github
-- Get asset from store
+- Get asset from GitHub
+- Get asset from Microsoft Store
 - Set audio volume
 - Set desktop background
 - Set developer mode
@@ -20,16 +20,16 @@ Windows related helper PowerShell module.
 - Set lock screen background
 - Set power plan
 - Set sleeping timeout
-- Use activate office
-- Use activate windows
+- Use active Office
+- Use activate Windows
 - Use create shortcut
 - Use expand archive
 - Use reboot and reload
 - Use reload system clock
 - Use remove desktop
 - Use update gsudo
-- Use update nanazip
-- Use update powershell
+- Use update NanaZip
+- Use update PowerShell
 - …
 
 <hr>
