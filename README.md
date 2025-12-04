@@ -41,5 +41,3 @@ $Address = "https://raw.githubusercontent.com/olankens/whelpers/HEAD/src/Whelper
 $Content = ([Scriptblock]::Create((New-Object System.Net.WebClient).DownloadString($Address)))
 New-Module -Name "$Address" -ScriptBlock $Content -EA SI > $Null
 ```
-
-<hr>
