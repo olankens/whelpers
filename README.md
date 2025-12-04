@@ -1,5 +1,3 @@
-<hr>
-
 <div align="center">
 <img src=".assets/icon.svg" height="128">
 <h1><samp>WHELPERS</samp></h1>
@@ -43,5 +41,3 @@ $Address = "https://raw.githubusercontent.com/olankens/whelpers/HEAD/src/Whelper
 $Content = ([Scriptblock]::Create((New-Object System.Net.WebClient).DownloadString($Address)))
 New-Module -Name "$Address" -ScriptBlock $Content -EA SI > $Null
 ```
-
-<hr>
