@@ -1,8 +1,10 @@
 <hr>
 
-# <samp>OVERVIEW</samp>
-
-Windows related helper PowerShell module for automation purposes.
+<div align="center">
+<img src=".assets/icon.svg" height="128">
+<h1><samp>WHELPERS</samp></h1>
+<p>Windows related helper PowerShell module for automation purposes.</p>
+</div>
 
 <hr>
 
@@ -33,8 +35,6 @@ Windows related helper PowerShell module for automation purposes.
 - …
 
 <hr>
-
-# <samp>GUIDANCE</samp>
 
 ### Import Module
 
