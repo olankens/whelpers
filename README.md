@@ -1,8 +1,8 @@
-<div align="center">
-<img src=".assets/icon.svg" height="128">
-<h1><samp>WHELPERS</samp></h1>
-<p>Windows related helper PowerShell module for automation purposes.</p>
-</div>
+# OVERVIEW
+
+<p><img src="https://lipsum.app/1280x640/202020/fff" width="100%"></p>
+
+Windows related helper PowerShell module for automation purposes. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean fringilla dolor ac lorem tincidunt, ac dictum nunc iaculis. Proin aliquet urna vitae ullamcorper fringilla. Pellentesque nec porttitor risus, id condimentum dui. Fusce vehicula congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In sit amet orci sollicitudin, mattis mi ac, tempor lacus. Cras augue orci, euismod et turpis ut, vehicula hendrerit orci.
 
 <hr>
 
@@ -21,7 +21,7 @@
 - Set power plan
 - Set sleeping timeout
 - Use active Office
-- Use activate Windows
+- Use active Windows
 - Use create shortcut
 - Use expand archive
 - Use reboot and reload
@@ -33,6 +33,8 @@
 - …
 
 <hr>
+
+# GUIDANCE
 
 ### Import Module
 
